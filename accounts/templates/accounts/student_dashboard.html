@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard - FoodFind{% endblock %}
+{% block content %}
+<h2>Student Dashboard</h2>
+<p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
+<ul>
+    <li>Browse campus food (coming soon)</li>
+    <li>Budget guide (coming soon)</li>
+    <li>My favorites (coming soon)</li>
+    <li><a href="{% url 'profile' %}">View my profile</a></li>
+</ul>
+{% endblock %}

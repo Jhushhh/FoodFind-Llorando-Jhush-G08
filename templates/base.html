@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}FoodFind{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; color: #222; }
+        nav { background: #8a242b; padding: 10px 20px; color: #fff; }
+        nav a, nav button { color: #fff; margin-right: 15px; text-decoration: none; background: none; border: none; font-size: 16px; cursor: pointer; }
+        nav form { display: inline; }
+        .container { max-width: 700px; margin: 20px auto; background: #fff; padding: 20px; border: 1px solid #ddd; }
+        .messages { list-style: none; padding: 0; }
+        .messages li { padding: 8px 12px; margin-bottom: 8px; border: 1px solid; }
+        .messages .success { background: #e6f4ea; border-color: #2e7d32; color: #2e7d32; }
+        .messages .error { background: #fdecea; border-color: #c62828; color: #c62828; }
+        .errorlist { color: #c62828; list-style: none; padding: 0; margin: 2px 0; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input[type=text], input[type=email], input[type=password], input[type=file] { width: 95%; padding: 6px; }
+        button.btn, a.btn { display: inline-block; margin-top: 15px; padding: 8px 16px; background: #8a242b; color: #fff; border: none; text-decoration: none; cursor: pointer; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+        .helptext { color: #666; font-size: 12px; display: block; }
+    </style>
+</head>
+<body>
+    <nav>
+        <strong>FoodFind</strong> &nbsp;
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'profile' %}">My Profile</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout ({{ user.username }})</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

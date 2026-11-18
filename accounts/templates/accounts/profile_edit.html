@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile - FoodFind{% endblock %}
+{% block content %}
+<h2>Edit Profile</h2>
+<form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% for field in user_form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}{{ field.errors }}
+    {% endfor %}
+    {% for field in profile_form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}{{ field.errors }}
+    {% endfor %}
+    <button class="btn" type="submit">Save Changes</button>
+    <a href="{% url 'profile' %}">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+from functools import wraps
+
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+
+
+def role_required(role):
+    """Allow only logged-in users with the given role. Others get 403 Forbidden."""
+
+    def decorator(view_func):
+        @wraps(view_func)
+        @login_required
+        def wrapper(request, *args, **kwargs):
+            if request.user.profile.role != role:
+                raise PermissionDenied
+            return view_func(request, *args, **kwargs)
+
+        return wrapper
+
+    return decorator

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}My Profile - FoodFind{% endblock %}
+{% block content %}
+<h2>My Profile</h2>
+{% if profile.photo %}
+    <img src="{{ profile.photo.url }}" alt="Profile photo" width="120"><br>
+{% endif %}
+<p><strong>Username:</strong> {{ user.username }}</p>
+<p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Contact number:</strong> {{ profile.contact_number|default:"-" }}</p>
+<p><strong>Role:</strong> {{ profile.get_role_display }}</p>
+<a class="btn" href="{% url 'profile_edit' %}">Edit Profile</a>
+{% endblock %}

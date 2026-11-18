@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - FoodFind{% endblock %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<p>Welcome, {{ user.username }}.</p>
+<p>
+    Total users: <strong>{{ total_users }}</strong> |
+    Students: <strong>{{ total_students }}</strong> |
+    Admins: <strong>{{ total_admins }}</strong>
+</p>
+<ul>
+    <li>Manage establishments and food listings (coming soon)</li>
+    <li><a href="{% url 'admin:index' %}">Django admin site</a></li>
+</ul>
+<h3>Registered Users</h3>
+<table>
+    <tr><th>Username</th><th>Name</th><th>Email</th><th>Role</th><th>Joined</th></tr>
+    {% for u in users %}
+    <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.first_name }} {{ u.last_name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.profile.get_role_display }}</td>
+        <td>{{ u.date_joined|date:"M d, Y" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
